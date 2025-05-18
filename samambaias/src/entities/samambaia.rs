@@ -32,6 +32,7 @@ pub enum EstágioDeVida {
     Adulta,
 }
 
+#[derive(Clone)]
 pub struct Samambaia {
     espécie: EspécieSamambaia,
     estágio: EstágioDeVida,

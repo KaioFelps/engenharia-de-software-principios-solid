@@ -1,7 +1,7 @@
 use datastore::{Datastore, FakeDb};
 use samambaias::entities::Samambaia;
 
-pub fn buscar_samambaias(bd: &FakeDb) -> Vec<Samambaia> {
+pub fn buscar_samambaias(bd: &mut FakeDb<Samambaia>) -> Vec<Samambaia> {
     // Observe que estamos recebendo a referência para a conexão do banco de dados
     // SOMENTE para inicializar o datastore.
     //

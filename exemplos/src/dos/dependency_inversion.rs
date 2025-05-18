@@ -1,7 +1,7 @@
 use datastore::{Datastore, FakeDb};
 use samambaias::entities::Samambaia;
 
-pub fn buscar_samambaias(bd: &FakeDb) -> Vec<Samambaia> {
+pub fn buscar_samambaias(bd: &mut FakeDb<Samambaia>) -> Vec<Samambaia> {
     // Ao receber a conexão como parâmetro, não precisamos mais instanciá-la dentro da função. Removemos
     // essa dependência da função.
     //
