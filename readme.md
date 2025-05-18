@@ -1,11 +1,13 @@
 # Principios SOLID
-Trabalho de Engenharia de Software (BCC3004). Os princípios escolhidos foram "Single Responsibility Principle"
-(Princípio da Responsabilidade Única), "Dependency Inversion Principle" (Princípio da Inversão de Dependências)
+Trabalho de Engenharia de Software (BCC3004). Os princípios escolhidos foram "Interface Segregation Principle"
+(Princípio da Segregação de Interfaces), "Dependency Inversion Principle" (Princípio da Inversão de Dependências)
 e "Liskov Substitution Principle" (Princípio da Substituição de Liskov). Além desses, também serão abordados a
 Lei de Deméter e Composição Sobre Herança.
 
 A ordem citada acima não é a ordem em que os princípios serão explicados. Eles estão explicados na ordem mais
 conveniente para exemplificá-los, de modo a relacionar todos eles.
+
+Atente-se a todos os comentários presentes nos códigos: são explicações tal qual este markdown.
 
 ## Dependency Inversion
 Este princípio é satisfeito quando, ao invés de instânciar classes diretamente, é preferível receber instâncias destas
@@ -132,12 +134,29 @@ const funcionário: Funcionário = /* ... */;
 ✅ console.log(funcionário.nome());
 ```
 
-<!-- 
-## Single Responsibility Principle
-Este princípio diz que um método/classe/função deve ter somente uma responsabilidade.
+## Liskov Substitution Principle
+Este princípio é satisfeito quando podemos substituir a dependência de uma função por uma especialização dessa
+sem que ela perceba. É um caso clássico de polimorfismo e é melhor aproveitada quando a inversão de dependências
+já foi aplicada.
 
-Ironicamente, mesmo após a separação, a composição do método ainda consiste em executar várias coisas, porém
-cada etapa está encapsulada na sua própria função (que pode ser reutilizada mais tarde). Isso quer dizer que
-podemos satisfazer esse requesito por meio de refatorações.
+Praticamente, dada uma função de assinatura `fn baz(bar: &Bar)`, sendo `Foo` uma classe que herda `Bar`, deveria
+ser possível realizar a chamada `baz(&foo)`, onde `foo: Foo`.
 
-Confira a função ` -->
+Em Rust, porém, não temos classes. Muito menos herança. A verdade é que, mesmo com composição, podemos atender esse
+princípio: quer por meio de interfaces, quer por meio de "downcasts".
+
+Em primeiro momento, vamos criar uma nova estrutura:
+[SamambaiaDatastoreComComposição](./exemplos/src/common/samambaia_datastore_composta.rs). Ela é uma especialização da já conhecida `Datastore`, porém com alguns métodos utilitários.
+
+A função `buscar_samambaias` espera uma instância de `Datastore`, não da nossa especialização. Porém, se alternarmos
+a assinatura para receber uma referência de `Datastore`, podemos brincar com um polimorfismo super básico e passar uma
+referência da `SamambaiaDatastoreComComposição` no lugar.
+
+Para atingir isso, em Rust, basta implementarmos a trait `AsRef<Datastore>` para nossa classe:
+
+- Veja a [nova assinatura e a chamada da função](./exemplos/src/common/implementando_as_ref_para_datastore_composta.rs).
+
+Outro meio para satisfazer este princípio, seria utilizar interfaces (em Rust, traits). Nesse caso, esperamos
+não a interface de uma classe base, mas sim um objeto qualquer que satisfaça a interface (abstrata) esperada.
+
+Para dar esse exemplo, porém, vamos aproveitar e começar a falar do próximo princípio:
