@@ -14,3 +14,20 @@ fictício:
 - Em seguida, veja o exemplo da mesma função refatorada para satisfazer o princípio:
     [`buscar_samambaias`](./exemplos/src/dos/dependency_inversion.rs)
 
+## Lei de Deméter
+A lei de Deméter sugere que evitemos utilizar caminhos muito longo para chegar em um destino dentro de uma função,
+de modo a evitar que as funções precisem ter conhecimento demais sobre a estrutura de um objeto.
+
+Ainda na função `buscar_samambaias`, observe:
+- O [contra-exemplo](./exemplos/src/donts/demeter.rs);
+- A [resolução](./exemplos/src/dos/demeter.rs).
+
+<!-- 
+## Single Responsibility Principle
+Este princípio diz que um método/classe/função deve ter somente uma responsabilidade.
+
+Ironicamente, mesmo após a separação, a composição do método ainda consiste em executar várias coisas, porém
+cada etapa está encapsulada na sua própria função (que pode ser reutilizada mais tarde). Isso quer dizer que
+podemos satisfazer esse requesito por meio de refatorações.
+
+Confira a função ` -->
