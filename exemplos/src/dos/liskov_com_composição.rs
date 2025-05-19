@@ -14,6 +14,7 @@ mod test {
     use super::buscar_samambaias;
     use crate::common::samambaia_datastore_composta::SamambaiaDatastoreComComposição;
 
+    #[test]
     fn deveriamos_poder_chamar_a_função_com_a_estrutura_especialista() {
         let mut db = FakeDb::<Samambaia>::new();
         let samambaia_datastore = SamambaiaDatastoreComComposição::new(&mut db);
