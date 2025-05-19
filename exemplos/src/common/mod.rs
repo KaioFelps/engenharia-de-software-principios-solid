@@ -1,2 +1,4 @@
-pub mod implementando_as_ref_para_datastore_composta;
+pub mod impls;
+pub mod samambaia_datastore;
 pub mod samambaia_datastore_composta;
+pub mod traits;

@@ -152,11 +152,11 @@ A função `buscar_samambaias` espera uma instância de `Datastore`, não da nos
 a assinatura para receber uma referência de `Datastore`, podemos brincar com um polimorfismo super básico e passar uma
 referência da `SamambaiaDatastoreComComposição` no lugar.
 
-Para atingir isso, em Rust, basta implementarmos a trait `AsRef<Datastore>` para nossa classe:
+Para atingir isso, em Rust, basta implementarmos a trait `AsRef<Datastore>` para nossa struct:
 
-- Veja a [nova assinatura e a chamada da função](./exemplos/src/common/implementando_as_ref_para_datastore_composta.rs).
+- Veja a [nova assinatura e a chamada da função](./exemplos/src/common/impls/implementando_as_ref_para_datastore_composta.rs).
 
-Outro meio para satisfazer este princípio, seria utilizar interfaces (em Rust, traits). Nesse caso, esperamos
+Outro meio para satisfazer este princípio, seria utilizar interfaces (em Rust, *traits*). Nesse caso, esperamos
 não a interface de uma classe base, mas sim um objeto qualquer que satisfaça a interface (abstrata) esperada.
 
 Para dar esse exemplo, porém, vamos aproveitar e começar a falar do próximo princípio:
