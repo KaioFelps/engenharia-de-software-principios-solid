@@ -160,3 +160,32 @@ Outro meio para satisfazer este princípio, seria utilizar interfaces (em Rust, 
 não a interface de uma classe base, mas sim um objeto qualquer que satisfaça a interface (abstrata) esperada.
 
 Para dar esse exemplo, porém, vamos aproveitar e começar a falar do próximo princípio:
+
+## Interface Segregation Principle
+
+> **Nota:** considere "interface" de uma estrutura como o conjunto de todos os métodos públicos à ela associados.
+
+Nossa estrutura `Datastore` agora possui mais de um método. Contudo, a função discutida desde o princípio continua
+utilizando um único método do objeto.
+
+Esse princípio diz que as interfaces devem ser pequenas; devem conter somente o que será utilizado; devem impedir
+que uma função tenha acesso a coisas que não precisa ou não deveria poder utilizar.
+
+Podemos enxergar isso na nossa função! Ela utiliza somente o método `todas_as_samambaias`, apesar de ter pleno acesso
+ao método `salvar_samambaia`. 
+
+Para resolver isso, vamos criar uma "trait" (lembrando que traits, afim de simplificar a explicação, são sinônimos
+de interfaces) que declare o único método ao qual nossa função deve ter acesso para conseguir realizar seu propósito:
+[BuscarSamambaiasDoDatastore](./exemplos/src/common/traits/buscar_samambaia_do_datastore.rs).
+
+Vamos também criar uma nova estrutura, a [SamambaiasDatastore](./exemplos/src/common/samambaia_datastore.rs). Note
+que ela não é mais composta por um `Datastore` (nem herda um). Ela é um datastore especialista em samambaias.
+
+Do mesmo modo que implementamos `AsRef` anteriormente, precisamos implementar essa nova interface para todos os objetos
+que possam ser passados para nossa função. No caso, deve ser
+[implementado para `Datastore` e `SamambaiaDatastore`](./exemplos/src/common/impls/implementando_buscar_samambaia_do_datastore.rs).
+
+Agora, basta alterar a assinatura da nossa função para que ela receba uma implementação dessa trait ao invés de um
+objeto concreto e, então, poderemos chamá-lo com ambos os nossos datastores:
+
+- Confira a [nova assinatura da função](./exemplos/src/dos/interface_segregation.rs) e veja em ação nos testes (no mesmo arquivo).
